@@ -1,201 +1,204 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Duo Sabor — Cardápio Oficial</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root { --vinho: #6B1A1A; --vinho-esc: #3D0A0A; --vinho-cla: #9B2D2D; --bege: #F5EDE0; --preto: #0D0D0D; --branco: #FFFDF8; --texto: #1E0A0A; --cinza: #888; --verde: #1e7e34; }
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bege); font-family: 'Nunito', sans-serif; color: var(--texto); overflow-x: hidden; }
-header { background: var(--preto); padding: 1rem 1.4rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,.5); }
-.h-duo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.5rem; color: var(--branco); letter-spacing: -1px; }
-.h-sab { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--vinho-cla); }
-.cart-btn { background: var(--vinho); color: var(--branco); border: none; border-radius: 50px; padding: .55rem 1.1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: .5rem; position: relative; }
-#badgeCount { background: var(--branco); color: var(--vinho); font-size: .7rem; font-weight: 800; border-radius: 50%; width: 19px; height: 19px; display: flex; align-items: center; justify-content: center; position: absolute; top: -5px; right: -5px; }
-.hero { background: var(--preto); text-align: center; padding: 2.8rem 1.5rem 2.2rem; }
-.hero h1 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 2.8rem; color: var(--branco); line-height: .95; }
-.hero h1 em { color: var(--vinho-cla); font-style: italic; }
-.stripe { height: 5px; background: linear-gradient(90deg, var(--preto), var(--vinho-cla), var(--vinho), var(--vinho-cla), var(--preto)); }
-main { max-width: 1080px; margin: 0 auto; padding: 2rem 1.2rem; display: grid; grid-template-columns: 1fr 320px; gap: 1.8rem; align-items: start; }
-@media (max-width: 780px) { main { grid-template-columns: 1fr; } .sidebar { display: none; } }
-.sec-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; margin: 1.5rem 0 1rem; }
-.card { background: var(--branco); border-radius: 14px; border: 1.5px solid rgba(107,26,26,.1); padding: 1.1rem; margin-bottom: .7rem; display: flex; align-items: center; gap: .9rem; }
-.card.esgotado { opacity: 0.6; filter: grayscale(1); border-color: transparent; }
-.card-left { flex: 1; min-width: 0; }
-.card-ico { font-size: 1.5rem; display: block; margin-bottom: .2rem; }
-.card-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; }
-.card-price { font-weight: 800; color: var(--vinho); font-size: .9rem; }
-.qty { display: flex; align-items: center; gap: .35rem; }
-.qty-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--vinho); background: transparent; color: var(--vinho); font-size: 1.2rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.qty-n { font-weight: 800; font-size: 1rem; min-width: 20px; text-align: center; }
-.btn-add { background: var(--vinho); color: var(--branco); border: none; border-radius: 8px; padding: .45rem .85rem; font-weight: 800; cursor: pointer; }
-.btn-add.off { background: #666; color: #ccc; cursor: not-allowed; }
-.sidebar { background: var(--branco); border-radius: 18px; border: 1.5px solid rgba(107,26,26,.12); padding: 1.4rem; position: sticky; top: 76px; }
-.sb-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; margin-bottom: 1rem; }
-.ci { border-bottom: 1px solid rgba(107,26,26,.08); padding: .7rem 0; display: flex; align-items: flex-start; gap: .5rem; }
-#adminPanel { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 9999; color: white; padding: 1.5rem; overflow-y: auto; }
-.admin-card { background: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #333; }
-.admin-item { background: #222; padding: 10px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-.status-btn { padding: 6px 12px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; font-size: 0.7rem; }
-.status-on { background: var(--verde); color: white; }
-.status-off { background: #666; color: white; }
-.btn-del { background: #dc3545; color: white; margin-left: 5px; }
-.input-campo { width: 100%; border: 1.5px solid rgba(107,26,26,0.2); border-radius: 9px; padding: 0.65rem 0.75rem; font-size: 0.9rem; margin-bottom: 0.5rem; outline: none; }
-footer { background: var(--preto); padding: 3rem 1.5rem; text-align: center; color: #444; }
-.fab { position: fixed; bottom: 1.4rem; right: 1.4rem; background: var(--vinho); color: white; border: none; border-radius: 50px; padding: .9rem 1.4rem; font-weight: 800; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: none; }
-@media (max-width: 780px) { .fab { display: flex; } }
-.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200; align-items: flex-end; }
-.modal { background: var(--branco); border-radius: 20px 20px 0 0; padding: 1.4rem; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
-.toast { position: fixed; bottom: 5.5rem; left: 50%; transform: translateX(-50%); background: var(--preto); color: white; padding: .6rem 1.4rem; border-radius: 50px; z-index: 999; opacity: 0; transition: .3s; pointer-events: none; }
-.toast.show { opacity: 1; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Duo Sabor — Cardápio Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --vinho: #6B1A1A; --vinho-esc: #3D0A0A; --vinho-cla: #9B2D2D; --bege: #F5EDE0; --preto: #0D0D0D; --branco: #FFFDF8; --texto: #1E0A0A; --cinza: #888; --verde: #1e7e34; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bege); font-family: 'Nunito', sans-serif; color: var(--texto); overflow-x: hidden; }
+        header { background: var(--preto); padding: 1rem 1.4rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,.5); }
+        .h-duo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.5rem; color: var(--branco); letter-spacing: -1px; }
+        .h-sab { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--vinho-cla); }
+        .cart-btn { background: var(--vinho); color: var(--branco); border: none; border-radius: 50px; padding: .55rem 1.1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: .5rem; position: relative; }
+        #badgeCount { background: var(--branco); color: var(--vinho); font-size: .7rem; font-weight: 800; border-radius: 50%; width: 19px; height: 19px; display: flex; align-items: center; justify-content: center; position: absolute; top: -5px; right: -5px; }
+        .hero { background: var(--preto); text-align: center; padding: 2.8rem 1.5rem 2.2rem; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 2.8rem; color: var(--branco); line-height: .95; }
+        .hero h1 em { color: var(--vinho-cla); font-style: italic; }
+        .stripe { height: 5px; background: linear-gradient(90deg, var(--preto), var(--vinho-cla), var(--vinho), var(--vinho-cla), var(--preto)); }
+        main { max-width: 1080px; margin: 0 auto; padding: 2rem 1.2rem; display: grid; grid-template-columns: 1fr 320px; gap: 1.8rem; align-items: start; }
+        @media (max-width: 780px) { main { grid-template-columns: 1fr; } .sidebar { display: none; } }
+        .sec-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; margin: 1.5rem 0 1rem; }
+        .card { background: var(--branco); border-radius: 14px; border: 1.5px solid rgba(107,26,26,.1); padding: 1.1rem; margin-bottom: .7rem; display: flex; align-items: center; gap: .9rem; }
+        .card.esgotado { opacity: 0.6; filter: grayscale(1); border-color: transparent; }
+        .card-left { flex: 1; min-width: 0; }
+        .card-ico { font-size: 1.5rem; display: block; margin-bottom: .2rem; }
+        .card-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; }
+        .card-price { font-weight: 800; color: var(--vinho); font-size: .9rem; }
+        .qty { display: flex; align-items: center; gap: .35rem; }
+        .qty-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--vinho); background: transparent; color: var(--vinho); font-size: 1.2rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .qty-n { font-weight: 800; font-size: 1rem; min-width: 20px; text-align: center; }
+        .btn-add { background: var(--vinho); color: var(--branco); border: none; border-radius: 8px; padding: .45rem .85rem; font-weight: 800; cursor: pointer; }
+        .btn-add.off { background: #666; color: #ccc; cursor: not-allowed; }
+        .sidebar { background: var(--branco); border-radius: 18px; border: 1.5px solid rgba(107,26,26,.12); padding: 1.4rem; position: sticky; top: 76px; }
+        .sb-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; margin-bottom: 1rem; }
+        .ci { border-bottom: 1px solid rgba(107,26,26,.08); padding: .7rem 0; display: flex; align-items: flex-start; gap: .5rem; }
+        #adminPanel { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 9999; color: white; padding: 1.5rem; overflow-y: auto; }
+        .admin-card { background: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #333; }
+        .admin-item { background: #222; padding: 10px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .status-btn { padding: 6px 12px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; font-size: 0.7rem; }
+        .status-on { background: var(--verde); color: white; }
+        .status-off { background: #666; color: white; }
+        .btn-del { background: #dc3545; color: white; margin-left: 5px; }
+        .input-campo { width: 100%; border: 1.5px solid rgba(107,26,26,0.2); border-radius: 9px; padding: 0.65rem 0.75rem; font-size: 0.9rem; margin-bottom: 0.5rem; outline: none; }
+        footer { background: var(--preto); padding: 3rem 1.5rem; text-align: center; color: #444; cursor: pointer; }
+        .fab { position: fixed; bottom: 1.4rem; right: 1.4rem; background: var(--vinho); color: white; border: none; border-radius: 50px; padding: .9rem 1.4rem; font-weight: 800; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: none; }
+        @media (max-width: 780px) { .fab { display: flex; } }
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200; align-items: flex-end; }
+        .modal { background: var(--branco); border-radius: 20px 20px 0 0; padding: 1.4rem; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+        .toast { position: fixed; bottom: 5.5rem; left: 50%; transform: translateX(-50%); background: var(--preto); color: white; padding: .6rem 1.4rem; border-radius: 50px; z-index: 999; opacity: 0; transition: .3s; pointer-events: none; }
+        .toast.show { opacity: 1; }
+    </style>
 </head>
 <body>
 
 <header>
-  <div class="h-logo"><span class="h-duo">DUO</span><span class="h-sab">Sabor</span></div>
-  <button class="cart-btn" onclick="abrirModal()">🛒 <span id="badgeCount">0</span></button>
+    <div class="h-logo"><span class="h-duo">DUO</span><span class="h-sab">Sabor</span></div>
+    <button class="cart-btn" onclick="abrirModal()">🛒 <span id="badgeCount">0</span></button>
 </header>
 
 <div class="hero"><h1>Duo<br><em>Sabor</em></h1></div>
 <div class="stripe"></div>
 
 <main>
-  <div id="cardapio-render">Conectando ao estoque...</div>
-  <div class="sidebar">
-    <div class="sb-title">🛒 Seu Pedido</div>
-    <div id="sb-itens"></div>
-    <div id="sb-footer"></div>
-  </div>
+    <div id="cardapio-render">Conectando ao estoque...</div>
+    <div class="sidebar">
+        <div class="sb-title">🛒 Seu Pedido</div>
+        <div id="sb-itens"></div>
+        <div id="sb-footer"></div>
+    </div>
 </main>
 
 <button class="fab" onclick="abrirModal()">🛒 Ver Pedido <span id="fab-badge">0</span></button>
 
 <div class="overlay" id="overlay" onclick="if(event.target.id==='overlay')fecharModal()">
-  <div class="modal">
-    <button onclick="fecharModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;color:var(--vinho)">✕</button>
-    <div class="sb-title">🛒 Seu Pedido</div>
-    <div id="modal-itens"></div>
-    <div id="modal-footer"></div>
-  </div>
+    <div class="modal">
+        <button onclick="fecharModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;color:var(--vinho)">✕</button>
+        <div class="sb-title">🛒 Seu Pedido</div>
+        <div id="modal-itens"></div>
+        <div id="modal-footer"></div>
+    </div>
 </div>
 
 <footer onclick="tentarAdmin()">
-  <p>© 2026 Duo Sabor - Jaguaruana</p>
+    <p>© 2026 Duo Sabor - Jaguaruana</p>
 </footer>
 
 <div id="adminPanel">
-  <h2 style="margin-bottom: 1rem;">⚙️ Painel de Controle</h2>
-  <div class="admin-card">
-    <input type="text" id="adm-nome" class="input-campo" placeholder="Nome do Produto">
-    <input type="number" id="adm-preco" class="input-campo" placeholder="Preço (Ex: 10.00)">
-    <select id="adm-cat" class="input-campo">
-      <option value="Bolos (fatia)">🍰 Bolos (fatia)</option>
-      <option value="Pratos Quentes">🍲 Pratos Quentes</option>
-      <option value="Irresistível">🍫 Irresistível</option>
-      <option value="Sanduíche Duo">🍔 Sanduíche Duo</option>
-    </select>
-    <button onclick="adicionarProdutoAdm()" style="width:100%; padding:12px; background:var(--verde); color:white; border:none; border-radius:8px; font-weight:bold;">ADICIONAR PRODUTO</button>
-  </div>
-  <div id="admin-list"></div>
-  <button onclick="fecharAdmin()" style="width:100%; margin-top:20px; padding:15px; border-radius:10px; border:none; background:white; color:black; font-weight:bold;">FECHAR PAINEL</button>
+    <h2 style="margin-bottom: 1rem;">⚙️ Painel de Controle</h2>
+    <div class="admin-card">
+        <input type="text" id="adm-nome" class="input-campo" placeholder="Nome do Produto">
+        <input type="number" id="adm-preco" class="input-campo" placeholder="Preço (Ex: 10.00)">
+        <select id="adm-cat" class="input-campo">
+            <option value="Bolos (fatia)">🍰 Bolos (fatia)</option>
+            <option value="Pratos Quentes">🍲 Pratos Quentes</option>
+            <option value="Doces">🍫 Doces</option>
+        </select>
+        <button onclick="adicionarProdutoAdm()" style="width:100%; padding:12px; background:var(--verde); color:white; border:none; border-radius:8px; font-weight:bold;">ADICIONAR PRODUTO</button>
+    </div>
+    <div id="admin-list"></div>
+    <button onclick="fecharAdmin()" style="width:100%; margin-top:20px; padding:15px; border-radius:10px; border:none; background:white; color:black; font-weight:bold;">FECHAR PAINEL</button>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, set, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-// SUAS CHAVES DO FIREBASE
-const firebaseConfig = {
-  apiKey: "AIzaSyB_wRzmox69fLWh4b9L7JLxfbbre_YznyA",
-  authDomain: "duo-sabor.firebaseapp.com",
-  databaseURL: "https://duo-sabor-default-rtdb.firebaseio.com",
-  projectId: "duo-sabor",
-  storageBucket: "duo-sabor.firebasestorage.app",
-  messagingSenderId: "978779358803",
-  appId: "1:978779358803:web:ffb30a2db5a528000afba6"
-};
+    const firebaseConfig = {
+        apiKey: "AIzaSyB_wRzmox69fLWh4b9L7JLxfbbre_YznyA",
+        authDomain: "duo-sabor.firebaseapp.com",
+        databaseURL: "https://duo-sabor-default-rtdb.firebaseio.com",
+        projectId: "duo-sabor",
+        storageBucket: "duo-sabor.firebasestorage.app",
+        messagingSenderId: "978779358803",
+        appId: "1:978779358803:web:ffb30a2db5a528000afba6"
+    };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const produtosRef = ref(db, 'produtos');
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const produtosRef = ref(db, 'produtos');
 
-let produtos = [];
-let carrinho = [], proxId = 0, qtds = {};
+    let produtos = [];
+    let carrinho = [], proxId = 0, qtds = {};
 
-// ESCUTA O BANCO EM TEMPO REAL
-onValue(produtosRef, (snapshot) => {
-  const data = snapshot.val();
-  produtos = data ? Object.values(data) : [];
-  renderSite();
-  if(document.getElementById('adminPanel').style.display === 'block') renderAdminList();
-});
+    // PRODUTOS PADRÃO (Para o site não começar vazio)
+    const produtosPadrao = [
+        { id: "1", nome: "Bolo de Pote Chocolate", preco: 12.00, cat: "Bolos (fatia)", ativo: true, ico: "🍰" },
+        { id: "2", nome: "Bolo de Cenoura", preco: 10.00, cat: "Bolos (fatia)", ativo: true, ico: "🍰" },
+        { id: "3", nome: "Sopa de Carne", preco: 15.00, cat: "Pratos Quentes", ativo: true, ico: "🍲" },
+        { id: "4", nome: "Canja de Galinha", preco: 14.00, cat: "Pratos Quentes", ativo: true, ico: "🍲" }
+    ];
 
-window.renderSite = function() {
-  const container = document.getElementById('cardapio-render');
-  if (produtos.length === 0) { container.innerHTML = "O cardápio está vazio."; return; }
-  container.innerHTML = '';
-  let cats = [...new Set(produtos.map(p => p.cat))];
-  cats.forEach(cat => {
-    container.innerHTML += `<div class="sec-name">${cat}</div>`;
-    produtos.filter(p => p.cat === cat).forEach(p => {
-      container.innerHTML += `
-        <div class="card ${p.ativo ? '' : 'esgotado'}">
-          <div class="card-left"><span class="card-ico">${p.ico || '🍽️'}</span><div class="card-name">${p.nome}</div><div class="card-price">R$ ${parseFloat(p.preco).toFixed(2)}</div></div>
-          <div class="card-right">
-            ${p.ativo ? `<div class="qty"><button class="qty-btn" onclick="mudarQty('${p.id}',-1)">−</button><span class="qty-n" id="n-${p.id}">0</span><button class="qty-btn" onclick="mudarQty('${p.id}',1)">+</button></div><button class="btn-add" onclick="addItem('${p.id}','${p.nome}',${p.preco})">Adicionar</button>` : `<button class="btn-add off">ESGOTADO</button>`}
-          </div>
-        </div>`;
+    onValue(produtosRef, (snapshot) => {
+        const data = snapshot.val();
+        // Se o banco estiver vazio, usa os produtos padrão, senão usa os do banco
+        produtos = data ? Object.values(data) : produtosPadrao;
+        renderSite();
+        if(document.getElementById('adminPanel').style.display === 'block') renderAdminList();
     });
-  });
-};
 
-window.mudarQty = (id, d) => { qtds[id] = Math.max(0, (qtds[id] || 0) + d); document.getElementById('n-'+id).textContent = qtds[id]; };
+    window.renderSite = function() {
+        const container = document.getElementById('cardapio-render');
+        container.innerHTML = '';
+        let cats = [...new Set(produtos.map(p => p.cat))];
+        cats.forEach(cat => {
+            container.innerHTML += `<div class="sec-name">${cat}</div>`;
+            produtos.filter(p => p.cat === cat).forEach(p => {
+                container.innerHTML += `
+                    <div class="card ${p.ativo ? '' : 'esgotado'}">
+                        <div class="card-left"><span class="card-ico">${p.ico || '🍽️'}</span><div class="card-name">${p.nome}</div><div class="card-price">R$ ${parseFloat(p.preco).toFixed(2)}</div></div>
+                        <div class="card-right">
+                            ${p.ativo ? `<div class="qty"><button class="qty-btn" onclick="mudarQty('${p.id}',-1)">−</button><span class="qty-n" id="n-${p.id}">0</span><button class="qty-btn" onclick="mudarQty('${p.id}',1)">+</button></div><button class="btn-add" onclick="addItem('${p.id}','${p.nome}',${p.preco})">Adicionar</button>` : `<button class="btn-add off">ESGOTADO</button>`}
+                        </div>
+                    </div>`;
+            });
+        });
+    };
 
-window.addItem = (id, n, p) => { 
-  let q = qtds[id] || 0; 
-  if(q===0) { toast('Selecione a quantidade!'); return; }
-  carrinho.push({ id: proxId++, nome: n, preco: p, qty: q }); 
-  qtds[id]=0; document.getElementById('n-'+id).textContent=0; 
-  renderCarrinho(); toast('Adicionado!'); 
-};
+    window.mudarQty = (id, d) => { qtds[id] = Math.max(0, (qtds[id] || 0) + d); document.getElementById('n-'+id).textContent = qtds[id]; };
+    window.addItem = (id, n, p) => { 
+        let q = qtds[id] || 0; 
+        if(q===0) { toast('Selecione a quantidade!'); return; }
+        carrinho.push({ id: proxId++, nome: n, preco: p, qty: q }); 
+        qtds[id]=0; document.getElementById('n-'+id).textContent=0; 
+        renderCarrinho(); toast('Adicionado!'); 
+    };
 
-window.renderCarrinho = () => {
-  let total = carrinho.reduce((s,i) => s+(i.preco*i.qty), 0);
-  document.getElementById('badgeCount').textContent = carrinho.length;
-  document.getElementById('fab-badge').textContent = carrinho.length;
-  let html = carrinho.length === 0 ? '<div style="padding:2rem;text-align:center">Carrinho vazio</div>' : '';
-  carrinho.forEach(i => { html += `<div class="ci"><div><b>${i.qty}x ${i.nome}</b></div><b>R$ ${(i.preco*i.qty).toFixed(2)}</b><button onclick="remover(${i.id})" style="border:none;background:none;color:red;margin-left:10px">✕</button></div>`; });
-  let foot = carrinho.length > 0 ? `<div style="padding:10px;font-weight:bold;display:flex;justify-content:space-between"><span>TOTAL</span><span>R$ ${total.toFixed(2)}</span></div><button class="btn-add" style="width:100%;padding:15px;background:var(--verde)" onclick="enviarWpp()">ENVIAR PEDIDO NO WHATSAPP</button>` : '';
-  document.getElementById('sb-itens').innerHTML = html; document.getElementById('sb-footer').innerHTML = foot;
-  document.getElementById('modal-itens').innerHTML = html; document.getElementById('modal-footer').innerHTML = foot;
-};
+    window.renderCarrinho = () => {
+        let total = carrinho.reduce((s,i) => s+(i.preco*i.qty), 0);
+        document.getElementById('badgeCount').textContent = carrinho.length;
+        document.getElementById('fab-badge').textContent = carrinho.length;
+        let html = carrinho.length === 0 ? '<div style="padding:2rem;text-align:center">Carrinho vazio</div>' : '';
+        carrinho.forEach(i => { html += `<div class="ci"><div><b>${i.qty}x ${i.nome}</b></div><b>R$ ${(i.preco*i.qty).toFixed(2)}</b><button onclick="remover(${i.id})" style="border:none;background:none;color:red;margin-left:10px">✕</button></div>`; });
+        let foot = carrinho.length > 0 ? `<div style="padding:10px;font-weight:bold;display:flex;justify-content:space-between"><span>TOTAL</span><span>R$ ${total.toFixed(2)}</span></div><button class="btn-add" style="width:100%;padding:15px;background:var(--verde)" onclick="enviarWpp()">ENVIAR PEDIDO NO WHATSAPP</button>` : '';
+        document.getElementById('sb-itens').innerHTML = html; document.getElementById('sb-footer').innerHTML = foot;
+        document.getElementById('modal-itens').innerHTML = html; document.getElementById('modal-footer').innerHTML = foot;
+    };
 
-window.remover = (id) => { carrinho = carrinho.filter(i => i.id !== id); renderCarrinho(); };
-window.enviarWpp = () => { let m = "*PEDIDO DUO SABOR*\n"; carrinho.forEach(i => m += `✅ ${i.qty}x ${i.nome}\n`); window.open("https://api.whatsapp.com/send?phone=5588997910595&text="+encodeURIComponent(m)); };
+    window.remover = (id) => { carrinho = carrinho.filter(i => i.id !== id); renderCarrinho(); };
+    window.enviarWpp = () => { let m = "*PEDIDO DUO SABOR*\n"; carrinho.forEach(i => m += `✅ ${i.qty}x ${i.nome}\n`); window.open("https://api.whatsapp.com/send?phone=5588997910595&text="+encodeURIComponent(m)); };
 
-// ADMIN FUNÇÕES
-window.toggleP = (id) => { let p = produtos.find(x => x.id === id); update(ref(db, 'produtos/' + id), { ativo: !p.ativo }); };
-window.removerProdutoAdm = (id) => { if(confirm('Remover permanentemente?')) remove(ref(db, 'produtos/' + id)); };
-window.adicionarProdutoAdm = () => {
-  const n = document.getElementById('adm-nome').value, p = document.getElementById('adm-preco').value, c = document.getElementById('adm-cat').value;
-  if(n && p) { const id = Date.now().toString(); set(ref(db, 'produtos/' + id), { id, nome: n, preco: parseFloat(p), cat: c, ativo: true }); document.getElementById('adm-nome').value=''; document.getElementById('adm-preco').value=''; toast('Produto Criado!'); }
-};
-window.renderAdminList = () => {
-  let l = document.getElementById('admin-list'); l.innerHTML = '';
-  produtos.forEach(p => { l.innerHTML += `<div class="admin-item"><span>${p.nome}</span><div><button class="status-btn ${p.ativo?'status-on':'status-off'}" onclick="toggleP('${p.id}')">${p.ativo?'DISPONÍVEL':'ESGOTADO'}</button><button class="status-btn btn-del" onclick="removerProdutoAdm('${p.id}')">🗑️</button></div></div>`; });
-};
+    window.toggleP = (id) => { let p = produtos.find(x => x.id === id); update(ref(db, 'produtos/' + id), { ativo: !p.ativo }); };
+    window.removerProdutoAdm = (id) => { if(confirm('Remover permanentemente?')) remove(ref(db, 'produtos/' + id)); };
+    window.adicionarProdutoAdm = () => {
+        const n = document.getElementById('adm-nome').value, p = document.getElementById('adm-preco').value, c = document.getElementById('adm-cat').value;
+        if(n && p) { const id = Date.now().toString(); set(ref(db, 'produtos/' + id), { id, nome: n, preco: parseFloat(p), cat: c, ativo: true }); document.getElementById('adm-nome').value=''; document.getElementById('adm-preco').value=''; toast('Produto Criado!'); }
+    };
+    window.renderAdminList = () => {
+        let l = document.getElementById('admin-list'); l.innerHTML = '';
+        produtos.forEach(p => { l.innerHTML += `<div class="admin-item"><span>${p.nome}</span><div><button class="status-btn ${p.ativo?'status-on':'status-off'}" onclick="toggleP('${p.id}')">${p.ativo?'DISPONÍVEL':'ESGOTADO'}</button><button class="status-btn btn-del" onclick="removerProdutoAdm('${p.id}')">🗑️</button></div></div>`; });
+    };
 
-window.toast = (m) => { let t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); };
-window.abrirModal = () => { renderCarrinho(); document.getElementById('overlay').style.display='flex'; };
-window.fecharModal = () => document.getElementById('overlay').style.display='none';
+    window.toast = (m) => { let t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); };
+    window.abrirModal = () => { renderCarrinho(); document.getElementById('overlay').style.display='flex'; };
+    window.fecharModal = () => document.getElementById('overlay').style.display='none';
 
-let clicks = 0; window.tentarAdmin = () => { clicks++; if(clicks===5){ if(prompt('Senha de Admin:')==='duo99') { document.getElementById('adminPanel').style.display='block'; renderAdminList(); } clicks=0; } };
-window.fecharAdmin = () => document.getElementById('adminPanel').style.display='none';
+    let clicks = 0; window.tentarAdmin = () => { clicks++; if(clicks===5){ if(prompt('Senha de Admin:')==='duo99') { document.getElementById('adminPanel').style.display='block'; renderAdminList(); } clicks=0; } };
+    window.fecharAdmin = () => document.getElementById('adminPanel').style.display='none';
 </script>
 </body>
 </html>
